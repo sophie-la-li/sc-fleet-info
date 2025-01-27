@@ -14,7 +14,7 @@ WIP prototype, so it's quite dirty. Expect bugs.
 There is no dedicated browser extension yet.
 
 Best way is to use any script injection plugin for your browser and inject the
-[contents of fleetInfoAsync.js](https://raw.githubusercontent.com/sophie-kuehn/sc-fleet-info/master/fleetInfoAsync.js) on "https://robertsspaceindustries.com/account" and its sub pages.
+[contents of fleetInfoAsync.js](https://raw.githubusercontent.com/sophie-kuehn/sc-fleet-info/master/fleetInfoAsync.js) on "https://robertsspaceindustries.com/en/account" and its sub pages.
 You will always have the newest version of the script.
 
 If this method is not working for you, you also can inject the
