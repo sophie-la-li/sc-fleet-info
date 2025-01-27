@@ -28,7 +28,7 @@ $(function () {
 
 // MAPPINGS ######################################################################################
 
-    const VERSION = '1.9.3';
+    const VERSION = '1.9.4';
 
     const INSURANCE_TYPE_LTI = 'lti';
     const INSURANCE_TYPE_IAE = 'iae';
@@ -504,6 +504,7 @@ $(function () {
                     upgradeTitle = upgradeTitle.replace("Standard Upgrade", "");
                     upgradeTitle = upgradeTitle.replace("Standard ...", "");
                     upgradeTitle = upgradeTitle.replace("Upgrade -", "");
+                    upgradeTitle = upgradeTitle.replace(" To ", " to ");
                     upgradeTitle = upgradeTitle.trim();
                     let parts = upgradeTitle.split(' to ');
 
@@ -909,9 +910,9 @@ $(function () {
         let fleetList = HTML_TPL.shipList.clone();
         innerContent.append(fleetList);
 
-        let updateLink = addPageButton('https://github.com/sophie-kuehn/sc-fleet-info', 'v' + VERSION);
+        let updateLink = addPageButton('https://github.com/sophie-la-li/sc-fleet-info', 'v' + VERSION);
         if (typeof SFI_ASYNC === 'undefined') {
-            $('<div>').load('https://sophie-kuehn.github.io/sc-fleet-info/VERSION', function (response, status) {
+            $('<div>').load('https://sophie-la-li.github.io/sc-fleet-info/VERSION', function (response, status) {
                 if (response.trim() === VERSION) return;
                 updateLink.find('.label').text('v' + VERSION + ' - Update available!');
             });
@@ -1087,4 +1088,3 @@ $(function () {
 
     $('head').append('<style>' + STYLESHEETS + '</style>');
 });
-
