@@ -28,7 +28,7 @@ $(function () {
 
 // MAPPINGS ######################################################################################
 
-    const VERSION = '1.9.2';
+    const VERSION = '1.9.3';
 
     const INSURANCE_TYPE_LTI = 'lti';
     const INSURANCE_TYPE_IAE = 'iae';
@@ -593,7 +593,7 @@ $(function () {
 
     const getPledgeLink = function(pledgeNumber)
     {
-        return 'https://robertsspaceindustries.com/account/pledges?page=' + pledgeNumber + '&pagesize=1';
+        return 'https://robertsspaceindustries.com/en/account/pledges?page=' + pledgeNumber + '&pagesize=1';
     };
 
     const getPledgeValueTitle = function(pledgeValue)
@@ -989,7 +989,7 @@ $(function () {
         if (dataLoaded) return callback();
         dataLoading = true;
 
-        const url = '/account/pledges?pagesize=50&page=' + page;
+        const url = '/en/account/pledges?pagesize=50&page=' + page;
         const $page = $('<div>');
         $page.load(url + ' .page-wrapper', function (response, status) {
             if ($('.list-items .empy-list', this).length > 0) {
@@ -1077,7 +1077,7 @@ $(function () {
     // we have to fix it in all other links to the pledges list.
     $("a").each((index, element) => {
         let href = $(element).attr('href');
-        if (href != undefined && href.search(/^\/account\/pledges/i) != -1) {
+        if (href != undefined && href.search(/^\/en\/account\/pledges/i) != -1) {
             href = href.replace(/(\&|)pagesize\=\d+(\&|)/, "");
             let delim = '?';
             if (href.search(/\?/) != -1) delim = '&';
