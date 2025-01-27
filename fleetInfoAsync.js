@@ -27,7 +27,7 @@ $(function () {
     SFI_ASYNC = true;
 
     let widget = document.createElement('script');
-    widget.setAttribute('src', 'https://sophie-kuehn.github.io/sc-fleet-info/fleetInfo.js');
+    widget.setAttribute('src', 'https://sophie-la-li.github.io/sc-fleet-info/fleetInfo.js');
     widget.setAttribute('async', 'async');
     document.body.appendChild(widget);
 });
