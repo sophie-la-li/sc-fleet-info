@@ -28,7 +28,7 @@ $(function () {
 
 // MAPPINGS ######################################################################################
 
-    const VERSION = '1.9.4';
+    const VERSION = '1.9.5';
 
     const INSURANCE_TYPE_LTI = 'lti';
     const INSURANCE_TYPE_IAE = 'iae';
@@ -385,6 +385,28 @@ $(function () {
             let insurances = {};
             let pledgeValue = $pledge.find('.js-pledge-value').attr('value');
 
+            $pledge.find('.with-images .item').each((i, elItem) => {
+                const $item = $(elItem);
+                let title = $item.find('.title').text();
+
+                if (/Star\sCitizen\sDigital\sDownload/i.test(title)) {
+                    gamePackage = true;
+
+                } else if (/Lifetime\s+Insurance/i.test(title)) {
+                    insurances.lti = true;
+
+                } else if (/IAE\s+Insurance/i.test(title)) {
+                    insurances.iae = true;
+
+                } else {
+                    let insuranceRegexResult = /(\d+)(\s+|-)Months?\s+Insurance/i.exec(title);
+                    if (insuranceRegexResult !== null && insuranceRegexResult[1]) {
+                        let duration = parseInt(insuranceRegexResult[1]);
+                        if (duration > 0) insurances.monthly = duration;
+                    }
+                }
+            });
+
             $pledge.find('.without-images .item .title').each((i, elItem) => {
                 let title = $(elItem).text().trim();
 
@@ -469,7 +491,7 @@ $(function () {
             });
 
             // browse the items with image
-            $('.with-images .item', $pledge).each((i, elItem) => {
+            $pledge.find('.with-images .item').each((i, elItem) => {
                 const $item = $(elItem);
 
                 let title = $('.title', $item).text();
@@ -909,6 +931,8 @@ $(function () {
 
         let fleetList = HTML_TPL.shipList.clone();
         innerContent.append(fleetList);
+
+        let kofiLink = addPageButton('https://ko-fi.com/sophie_la_li', 'ko-fi');
 
         let updateLink = addPageButton('https://github.com/sophie-la-li/sc-fleet-info', 'v' + VERSION);
         if (typeof SFI_ASYNC === 'undefined') {
