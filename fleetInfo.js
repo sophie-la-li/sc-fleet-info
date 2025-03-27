@@ -28,7 +28,7 @@ $(function () {
 
 // MAPPINGS ######################################################################################
 
-    const VERSION = '1.9.5';
+    const VERSION = '1.9.6';
 
     const INSURANCE_TYPE_LTI = 'lti';
     const INSURANCE_TYPE_IAE = 'iae';
@@ -499,6 +499,7 @@ $(function () {
 
                 let type = $item.find('.kind').text();
                 if (type.length === 0) type = "Miscellaneous";
+                if (type === "Insurance") return;
 
                 let image = pledgeImage;
                 if ($item.find('.image').length !== 0) {
