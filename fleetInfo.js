@@ -16,19 +16,11 @@ var SFI_DEFAULT_SHOW_UNASSIGNED_PAINTS_CARD = SFI_DEFAULT_SHOW_UNASSIGNED_PAINTS
 
 // END OF CONFIGURATION ##########################################################################
 
-if (typeof SFI_DONE == undefined) {
-    var SFI_DONE = false;
-}
-
-$(function () {
-    'use strict';
-
-    if (SFI_DONE == true) return;
-    SFI_DONE = true;
+scfi_wrapper = function() {
 
 // MAPPINGS ######################################################################################
 
-    const VERSION = '1.9.7';
+    const VERSION = '1.9.8';
 
     const INSURANCE_TYPE_LTI = 'lti';
     const INSURANCE_TYPE_IAE = 'iae';
@@ -119,6 +111,21 @@ $(function () {
 // STYLESHEETS AND HTTP TEMPLATES ################################################################
 
     const STYLESHEETS = `
+        .skUpgrade {
+            clear: both;
+            background: rgba(23, 29, 37, 0.5);
+            padding: 20px;
+            color: rgb(97, 216, 253);
+            border: 1px solid rgb(97, 216, 253);
+            margin: 20px 0;
+        }
+
+        .skUpgrade a {
+            color: rgb(97, 216, 253);
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
         .skButtonBox {
             float: right;
         }
@@ -932,6 +939,17 @@ $(function () {
         top.append($('<h2 class="title">' + pageTitle + '</h2>'));
         top.append($('<div style="clear:both" class="separator"></div>'));
 
+        let hideupgrade = localStorage["SCFI_LEGACY_HIDE_UPGRADE_NOTE"] ? true : false;
+
+        if (!hideupgrade) {
+            top.append($('<div style="clear:both" class="skUpgrade"><b>SC Fleet Info 2.0</b> is now available! You can find all info about it in the new <a href="https://github.com/sophie-la-li/sc-fleet-info-v2" target="_blank">GitHub repository</a>. To use it, you will need to install a new <a href="https://github.com/sophie-la-li/sc-fleet-info-v2/releases/latest/download/sc-fleet-info-injector.js" target="_blank">script</a>, as described there. Please note that the version you are currently using will no longer be maintained.<br /><br /><a href="javascript:void(0);" class="hideforever">Click here to hide this message.</a></div>'));
+
+            $('.hideforever', top).on('click', function(){
+                localStorage["SCFI_LEGACY_HIDE_UPGRADE_NOTE"] = 1;
+                $(this).parent().hide();
+            });
+        }
+
         let fleetList = HTML_TPL.shipList.clone();
         innerContent.append(fleetList);
 
@@ -1114,4 +1132,22 @@ $(function () {
     });
 
     $('head').append('<style>' + STYLESHEETS + '</style>');
-});
+};
+
+function scfi_wait_for_jquery(method) {
+    if (window.jQuery) {
+        method();
+    } else {
+        setTimeout(function() { scfi_wait_for_jquery(method) }, 50);
+    }
+}
+
+if (typeof SFI_DONE == undefined) {
+    var SFI_DONE = false;
+}
+
+if (SFI_DONE != true) {
+    SFI_DONE = true;
+    scfi_wait_for_jquery(scfi_wrapper);
+}
+
