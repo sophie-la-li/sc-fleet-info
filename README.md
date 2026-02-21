@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This repository and software is deprecated in favor of https://github.com/sophie-la-li/sc-fleet-info-v2 \
+> There will be no further updates to this version of the software.
+
 ## Star Citizen - Fleet Info
 
 This code injects a new sub page in the account section of https://robertsspaceindustries.com
